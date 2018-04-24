@@ -1,0 +1,124 @@
+//Course: CS2400 - 60 Computer Science II
+//Remark: Provide sum for Quarterly and Branches
+
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+void fill2DArray(int sales[][5], int numRow);
+void computeQtrlySum(int sales[][5], int qtrlySum[], int numQtrs, int numBranches);
+void computeBranchSums(int sales[][5], int branchSum[], int numQtrs, int numBranches);
+void displayYearlySalesReport(int sales[][5], int qtrlySum[], int branchSum[], int numQtrs, int numBranches);
+
+int main()
+{
+	//Declaring an 2D Array
+
+	const int ROW = 4, COLUMN = 5; //kept to be constant, it won't change, you are declaring
+	//int sales[ROW][COLUMN]; // int sales[] the 'sales' is the name of the array 
+	//from there inside the [ROW] you declared 4 , [COLUMN] = 5
+	int sales[ROW][COLUMN];
+
+	int qtrlySum[4] = { 0 }; // there are 4 rows whose sums are to be computed and stored
+	int branchSum[5] = { 0 }; // there are 5 columns whose sums are to be computed and stored
+
+	fill2DArray(sales, 4);
+	computeQtrlySum(sales, qtrlySum, ROW, COLUMN);
+	computeBranchSums(sales, branchSum, ROW, COLUMN);
+	displayYearlySalesReport(sales, qtrlySum, branchSum, ROW, COLUMN);
+
+	system("pause");
+	return 0;
+}
+
+void fill2DArray(int sales[][5], int numRow) {
+
+	numRow = 4;
+
+	cout << "Enter 4 rows and 5 columns of numbers: \n";
+
+	for (int r = 0; r < numRow; r++)
+	{
+		cout << "Enter 3 numbers for row # " << r << endl;
+
+		for (int c = 0; c < 5; c++)
+		{
+			cin >> sales[r][c];
+			cout << endl;
+		}
+	}
+
+
+}
+
+void computeQtrlySum(int sales[][5], int qtrlySum[], int numQtrs, int numBranches){
+
+	numQtrs = 4;
+	numBranches = 5;
+
+	for (int r = 0; r < numQtrs; r++)
+	{
+		for (int c = 0; c < numBranches; c++)
+		{
+			qtrlySum[r] += sales[r][c];
+		}
+	}
+
+}
+
+void computeBranchSums(int sales[][5], int branchSum[], int numQtrs, int numBranches) {
+
+	numQtrs = 4;
+	numBranches = 5;
+
+	for (int c = 0; c < numBranches; c++)
+	{
+		for (int r = 0; r < numQtrs; r++)
+		{
+			branchSum[c] += sales[r][c];
+		}
+	}
+
+
+}
+
+void displayYearlySalesReport(int sales[][5], int qtrlySum[], int branchSum[], int numQtrs, int numBranches){
+
+	numQtrs = 4;
+	numBranches = 5;
+	int total = 0;
+
+	for (int r = 0; r < numQtrs; r++){
+		total += qtrlySum[r];
+
+	}
+
+	cout << "Display the 4 x 5 Array:" << endl;
+	cout << endl;
+
+	cout << setw(11) << " " << "Branch 1 " << "Branch 2 " << "Branch 3 " << "Branch 4 " << "Branch 5 " << setw(8) << "Total" << endl;
+
+	for (int r = 0; r < numQtrs; r++)
+	{
+		cout << endl;
+		cout << "Quarter - " << r+1;
+		for (int c = 0; c < numBranches; c++)
+		{
+			cout << setw(8) << sales[r][c] << " ";
+		}
+		cout << setw(8) << qtrlySum[r];
+		cout << endl;
+	}
+
+	cout << endl;
+	cout << setw(11) << "Total";
+	for (int n = 0; n < numBranches; n++)
+	{
+		cout << setw(8) << branchSum[n] << " ";
+	}
+
+	cout <<setw(8)<< total << endl;
+
+}
+
+
